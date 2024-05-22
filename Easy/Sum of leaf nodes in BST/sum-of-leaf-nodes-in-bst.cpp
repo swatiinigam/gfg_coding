@@ -34,28 +34,33 @@ struct Node{
 }; */
 
 
-class Solution
-{
-    public:
-        /*You are required to complete below method */
-        int sumOfLeafNodes(Node *root ){
-             /*Your code here */
-             int leftsum=0;
-             int rightsum=0;
-             if(!root){
-                 return 0;
-             }
-             
-             if(root->left==nullptr && root->right==nullptr){
-                 return root->data;
-             }
-          
-                leftsum=  sumOfLeafNodes(root->left);
-               rightsum=   sumOfLeafNodes(root->right); 
-            
-             return leftsum+rightsum ;
+class Solution {
+public:
+    /* You are required to complete below method */
+    int sumOfLeafNodes(Node *root) {
+        int leftsum = 0;
+        int rightsum = 0;
+        
+        if (!root) {
+            return 0;
         }
+        
+        if (root->left == nullptr && root->right == nullptr) {
+            return root->data;
+        }
+        
+        if (root->left) {
+            leftsum = sumOfLeafNodes(root->left);
+        }
+        
+        if (root->right) {
+            rightsum = sumOfLeafNodes(root->right);
+        }
+        
+        return leftsum + rightsum;
+    }
 };
+
 
 
 //{ Driver Code Starts.
