@@ -8,32 +8,59 @@ using namespace std;
 // } Driver Code Ends
 // User function template for C++
 
-class Solution{
+#include <vector>
+#include <string>
+using namespace std;
+
+class Solution {
 private:
-    void solve(vector<vector<int>> &m, int n, int row, int col, int i, int j, string path, vector<string> &result, vector<vector<bool>> &vis) {
-        if (i < 0 || i >= row || j < 0 || j >= col || m[i][j] == 0 || vis[i][j]) {
+    void solve(vector<vector<int>>& m, int n, int i, int j, vector<string>& paths, string path, vector<vector<bool>>& vis) {
+        // Base case: Reached bottom-right corner
+        if (i == n - 1 && j == n - 1) {
+            paths.push_back(path);
             return;
         }
-        if (i == row - 1 && j == col - 1) {
-            result.push_back(path);
-            return;
+        
+        // Boundary checks and move validity
+        // Down move
+        if (i + 1 < n && m[i + 1][j] == 1 && !vis[i + 1][j]) {
+            vis[i + 1][j] = true;
+            solve(m, n, i + 1, j, paths, path + "D", vis);
+            vis[i + 1][j] = false;
         }
-        vis[i][j] = true;
-        solve(m, n, row, col, i, j + 1, path + 'R', result, vis);
-        solve(m, n, row, col, i + 1, j, path + 'D', result, vis);
-        solve(m, n, row, col, i, j - 1, path + 'L', result, vis);
-        solve(m, n, row, col, i - 1, j, path + 'U', result, vis);
-        vis[i][j] = false;
+        
+        // Up move
+        if (i - 1 >= 0 && m[i - 1][j] == 1 && !vis[i - 1][j]) {
+            vis[i - 1][j] = true;
+            solve(m, n, i - 1, j, paths, path + "U", vis);
+            vis[i - 1][j] = false;
+        }
+        
+        // Right move
+        if (j + 1 < n && m[i][j + 1] == 1 && !vis[i][j + 1]) {
+            vis[i][j + 1] = true;
+            solve(m, n, i, j + 1, paths, path + "R", vis);
+            vis[i][j + 1] = false;
+        }
+        
+        // Left move
+        if (j - 1 >= 0 && m[i][j - 1] == 1 && !vis[i][j - 1]) {
+            vis[i][j - 1] = true;
+            solve(m, n, i, j - 1, paths, path + "L", vis);
+            vis[i][j - 1] = false;
+        }
     }
 
 public:
-    vector<string> findPath(vector<vector<int>> &m, int n) {
-        vector<string> result;
+    vector<string> findPath(vector<vector<int>>& m, int n) {
+        vector<string> paths;
+        if (m[0][0] == 0 || m[n - 1][n - 1] == 0) return paths; // If start or end is blocked
+
         vector<vector<bool>> vis(n, vector<bool>(n, false));
-        if (m[0][0] == 1) {
-            solve(m, n, n, n, 0, 0, "", result, vis);
-        }
-        return result;
+        vis[0][0] = true;
+        solve(m, n, 0, 0, paths, "", vis);
+        
+        return paths;
     }
 };
 
