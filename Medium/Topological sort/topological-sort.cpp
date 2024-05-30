@@ -6,37 +6,52 @@ using namespace std;
 
 class Solution
 {
-    
-    private:
-    
-    void topo(int node,vector<int>adj[],vector<int>&vis,stack<int>&s){
-        vis[node]=true;
-        for(int i:adj[node]){
-            if(!vis[i]){
-                topo(i,adj,vis,s);
+public:
+    // Function to return list containing vertices in Topological order.
+    vector<int> topoSort(int V, vector<int> adj[])
+    {
+        // using Kahn's algorithm
+        queue<int> q;
+        vector<int> ans;
+        vector<int> indegree(V, 0);  // Initialize indegree for each node
+
+        // Calculate indegree for each node
+        for (int i = 0; i < V; i++)
+        {
+            for (int j : adj[i])
+            {
+                indegree[j]++;
             }
         }
-        s.push(node);
+
+        // Push nodes with indegree 0 onto the queue
+        for (int i = 0; i < V; i++)
+        {
+            if (indegree[i] == 0)
+            {
+                q.push(i);
+            }
+        }
+
+        // BFS
+        while (!q.empty())
+        {
+            int curr = q.front();
+            ans.push_back(curr);
+            q.pop();
+
+            for (int neighbor : adj[curr])
+            {
+                indegree[neighbor]--;
+                if (indegree[neighbor] == 0)
+                {
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        return ans.size() == V ? ans : vector<int>();  // Check if there is a valid topological order
     }
-	public:
-	//Function to return list containing vertices in Topological order. 
-	vector<int> topoSort(int V, vector<int> adj[]) 
-	{
-	    // code here
-	    vector<int>ans;
-	    vector<int>vis(V,false);
-	    stack<int>s;
-	    for(int i=0;i<V;i++){
-	        if(!vis[i]){
-	            topo(i,adj,vis,s);
-	        }
-	    }
-	    while(!s.empty()){
-	        ans.push_back(s.top());
-	        s.pop();
-	    }
-	    return ans;
-	}
 };
 
 
