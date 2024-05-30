@@ -5,40 +5,50 @@ using namespace std;
 // } Driver Code Ends
 
 class Solution {
-public:
-    bool isCyclicUtil(int v, vector<int> adj[], vector<bool>& visited, vector<bool>& recStack) {
-        visited[v] = true;
-        recStack[v] = true;
-
-        for (int u : adj[v]) {
-            if (!visited[u]) {
-                if (isCyclicUtil(u, adj, visited, recStack))
-                    return true;
-            } else if (recStack[u]) {
-                return true;
-            }
-        }
-
-        recStack[v] = false;
-        return false;
-    }
-
+  public:
+    // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
-        vector<bool> visited(V, false);
-        vector<bool> recStack(V, false);
-
-        for (int i = 0; i < V; ++i) {
-            if (!visited[i]) {
-                if (isCyclicUtil(i, adj, visited, recStack))
-                    return true;
+        // code here
+        //using topological sort
+        
+        vector<int>indegree(V,0);
+        queue<int>q;
+        vector<int>ans;
+        
+        for(int i=0;i<V;i++){
+            for(int j:adj[i]){
+                indegree[j]++;
             }
         }
-
-        return false;
+        
+        for(int i=0;i<V;i++){
+               if(indegree[i]==0){
+                   q.push(i);
+               }
+        }
+        
+        while(!q.empty()){
+            int curr=q.front();
+            q.pop();
+            ans.push_back(curr);
+            
+            for(auto neigh:adj[curr]){
+                indegree[neigh]--;
+                if(indegree[neigh]==0){
+                    q.push(neigh);
+                }
+            }
+            
+        }
+        if(ans.size()==V){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 };
 
-  
 
 //{ Driver Code Starts.
 
