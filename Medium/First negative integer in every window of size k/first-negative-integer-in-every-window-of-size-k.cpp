@@ -28,12 +28,6 @@ int main() {
 
 // } Driver Code Ends
 
-
-#include <vector>
-#include <deque>
-#include <climits>
-using namespace std;
-
 vector<long long> printFirstNegativeInteger(long long int A[], long long int N, long long int K) {
     deque<long long int> dq;
     vector<long long> result;
