@@ -14,22 +14,23 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> rotateMatrix(int k, vector<vector<int>> mat) {
-        // code here
+        int row = mat.size();
+        int col = mat[0].size();
         
-        vector<vector<int>> ans;
+        // Reduce k to the effective number of rotations needed
+        k = k % col;
         
-        int n = mat.size();
-        int m = mat[0].size();
-        k = k% m;
-        
-        for(int i=0;i<n;i++){
-            
-            rotate(mat[i].begin(),mat[i].begin()+k, mat[i].end());
+        for (int i = 0; i < row; ++i) {
+            // Rotate each row to the left by k steps
+            vector<int> newRow(col);
+            for (int j = 0; j < col; ++j) {
+                newRow[j] = mat[i][(j + k) % col];
+            }
+            mat[i] = newRow;
         }
         
         return mat;
     }
- 
 };
 
 
