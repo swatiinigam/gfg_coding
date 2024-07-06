@@ -115,21 +115,29 @@ struct Node
 };
 */
 class Solution {
+    
+    
+    private :
+    void inorder(Node*root,vector<Node *>&a){
+        if(root==nullptr){
+            return;
+        }
+        inorder(root->left,a);
+        a.push_back(root);
+        inorder(root->right,a);
+    }
   public:
-    Node* prev = NULL;
 
     void populateNext(Node *root) {
         // code here
-        if(root==NULL) return;
-        populateNext(root->left);
-        if(prev!=NULL){
-            prev->next = root;
+        vector<Node *>a;
+        inorder(root,a);
+        for(int i=0;i<a.size();i++){
+            a[i]->next=a[i+1];
         }
-        prev = root;
-        populateNext(root->right);
+         a.back()->next = nullptr;
     }
 };
-
 
 //{ Driver Code Starts.
 
