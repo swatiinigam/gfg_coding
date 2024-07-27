@@ -7,24 +7,26 @@ using namespace std;
 class Solution {
     
   private:
+  
+  void dfs(int node, vector<int> adj[],vector<bool>&vis,vector<int>&ans){
+      ans.push_back(node);
+      vis[node]=true;
+      for(auto it: adj[node]){
+          if(!vis[it]){
+              dfs(it,adj,vis,ans);
+              }
+          }
+      
     
-    vector<int> dfs(int node,vector<int>adj[],vector<int>&v,vector<bool>&vis){
-        v.push_back(node);
-        vis[node]=true;
-        for(auto it:adj[node]){
-            if(vis[it]!=true){
-                dfs(it,adj,v,vis);
-            }
-        }
-        return v;
-    }
+  }
   public:
     // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
         vector<bool>vis(V,false);
-        vector<int>v;
-        return dfs(0,adj,v,vis);
+        vector<int>ans;
+         dfs(0,adj,vis,ans);
+         return ans;
     }
 };
 
