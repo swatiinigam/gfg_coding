@@ -3,7 +3,6 @@
 using namespace std;
 
 // } Driver Code Ends
-
 class Solution
 {
     public:
@@ -13,23 +12,20 @@ class Solution
     {
         // Your code here
         vector<pair<int,int>>v;
-        
         for(int i=0;i<n;i++){
             v.push_back({end[i],start[i]});
         }
-        
         sort(v.begin(),v.end());
         vector<int>temp;
-         temp.push_back(v[0].first);
-        for(int i =0;i<n;i++){
-           if(v[i].second >temp.back()){
-               temp.push_back(v[i].first);
-           }
+        temp.push_back(v[0].first);
+        for(int i=0;i<n;i++){
+            if(v[i].second>temp.back()){
+                temp.push_back(v[i].first);
+            }
         }
         return temp.size();
     }
 };
-
 
 //{ Driver Code Starts.
 int main() {
