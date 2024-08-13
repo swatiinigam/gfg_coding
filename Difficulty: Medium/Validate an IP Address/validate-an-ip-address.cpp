@@ -5,50 +5,28 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-#include <string>
-#include <vector>
-#include <sstream>
-#include <cctype>
-
 class Solution {
-public:
-    int isValid(std::string str) {
-        // Splitting the string by dots
-        std::vector<std::string> segments;
-        std::stringstream ss(str);
-        std::string segment;
-        
-        while (std::getline(ss, segment, '.')) {
-            segments.push_back(segment);
-        }
-        
-        // Check if the number of segments is exactly 4
-        if (segments.size() != 4) {
-            return 0;
-        }
-        
-        for (const auto& s : segments) {
-            // Check if each segment is a valid number
-            if (s.empty() || s.size() > 3 || (s[0] == '0' && s.size() > 1)) {
-                return 0;
+  public:
+    int isValid(string str) {
+        // code here
+        int cnt = 0;
+        if(str[str.length()-1] == '.') return false;
+        for(int i=0; i<str.length(); i++)
+        {
+            string temp = "";
+            while(i<str.length() && str[i]!='.')
+            {
+                temp += str[i];
+                i++;
             }
-            
-            for (char c : s) {
-                if (!isdigit(c)) {
-                    return 0;
-                }
-            }
-            
-            int num = std::stoi(s);
-            if (num < 0 || num > 255) {
-                return 0;
-            }
+            if(temp.length() == 0) return false;
+            if(temp.length()>1 && temp[0] == '0') return false;
+            if(stoi(temp) > 255) return false;
+            cnt++;
         }
-        
-        return 1; // All segments are valid
+        return (cnt == 4);
     }
 };
-
 
 //{ Driver Code Starts.
 
