@@ -30,18 +30,27 @@ struct Node {
 }; */
 
 class Solution {
+  private:
+  
+  void Inorder(Node*root,vector<int>&v){
+      if(root==nullptr){
+            return ;
+        }
+      
+        Inorder(root->left,v);
+         v.push_back(root->data);
+        Inorder(root->right,v);
+        
+  }
   public:
-      vector<int>v;
     // Function to return a list containing the inorder traversal of the tree.
     vector<int> inOrder(Node* root) {
         // Your code here
-        //vector<int>v;
-       if(root!=nullptr){
-        inOrder(root->left);
-        v.push_back(root->data);
-        inOrder(root->right);
-       }
+        vector<int>v;
+        Inorder(root,v);
         return v;
+        
+        
     }
 };
 
