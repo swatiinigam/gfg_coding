@@ -5,6 +5,7 @@ using namespace std;
 
 // } Driver Code Ends
 
+
 class Solution {
 public:
     // Helper function to check if it's safe to color the current node with the given color
@@ -55,7 +56,6 @@ public:
         return false; // If not, return false
     }
 };
-
 
 //{ Driver Code Starts.
 
