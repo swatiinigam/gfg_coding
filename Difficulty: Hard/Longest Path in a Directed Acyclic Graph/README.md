@@ -1,0 +1,10 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/longest-path-in-a-directed-acyclic-graph/1">Longest Path in a Directed Acyclic Graph</a></h2><h3>Difficulty Level : Difficulty: Hard</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given a Weighted&nbsp;<strong>D</strong>irected&nbsp;<strong>A</strong>cyclic&nbsp;<strong>G</strong>raph (DAG) and a source vertex s in it, find the longest distances from s to all other vertices in the given graph. R</span><span style="font-size: 18px;">eturn the distance array,&nbsp; in the distance array instead of passing <strong>INF</strong> you need to have <strong>INT_MIN</strong> driver will automatically update it to <strong>INF</strong>.</span></p>
+<p><strong><span style="font-size: 18px;">Examples :</span></strong></p>
+<pre><span style="font-size: 18px;"><strong>Input: </strong>n<strong> </strong>= 3, m = 2, s = 0, edges[] = [[0,2,1],[0,1,1]]
+<strong>Output: </strong>distance[] = [0,1,1]
+<strong>Explanation: </strong>The shortest distance of vertex 1 from 0 is 1 and that of two is also 1.</span></pre>
+<pre><span style="font-size: 18px;"><strong>Input: </strong>n = 6,m = 10, s = 1, edges[] = [[0,1,5],[0,2,3],[1,3,6],[1,2,2],[2,4,4],[2,5,2],[2,3,7],[3,5,1],[3,4,-1],[4,5,-2]]
+<strong>Output: </strong>distance[] = [INF,0,2,9,8,10]
+<strong>Explanation: </strong>The vertex zero is not reachable from vertex 1 so its distance is INF, for 2 it is 2, for 3 it is 9, the same goes for 4 and 5.</span></pre>
+<p><span style="font-size: 18px;"><strong>Expected Time Complexity:</strong>&nbsp;O(V+E)<br><strong>Expected Auxiliary Space:</strong>&nbsp;O(V)</span><br><br></p>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 &lt;= n &lt;= 10</span><sup><span style="font-size: 15px;">3</span></sup><br><span style="font-size: 18px;">1&lt;=m&lt;=n*(n-1)/2</span><br><span style="font-size: 18px;">0&lt;=edges[i][0],edges[i][1]<br>-100&lt;=edges[i][2]&lt;=100.</span><br><span style="font-size: 18px;">&nbsp;</span></p></div>
