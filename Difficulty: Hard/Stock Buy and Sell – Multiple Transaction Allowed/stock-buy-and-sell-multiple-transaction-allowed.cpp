@@ -1,43 +1,20 @@
 //{ Driver Code Starts
-#include<bits/stdc++.h>
+// Initial template for C++
+#include <bits/stdc++.h>
 using namespace std;
-
-
-class Array
-{
-public:
-    template <class T>
-    static void input(vector<T> &A,int n)
-    {
-        for (int i = 0; i < n; i++)
-        {
-            scanf("%d ",&A[i]);
-        }
-    }
-
-    template <class T>
-    static void print(vector<T> &A)
-    {
-        for (int i = 0; i < A.size(); i++)
-        {
-            cout << A[i] << " ";
-        }
-        cout << endl;
-    }
-};
 
 
 // } Driver Code Ends
 
 class Solution {
   public:
-    int stockBuyAndSell(int n, vector<int> &prices) {
+    int stockBuyAndSell(vector<int> &prices) {
         // code here
-        //int n=prices.size();
-        int profit = 0;
-        for (int i = 1; i < n; i++) {
-            if (prices[i] > prices[i - 1])
-                profit += prices[i] - prices[i - 1];
+        int profit=0;
+        for(int i=1;i<prices.size();i++){
+            if(prices[i-1]<prices[i]){
+                profit+=prices[i]-prices[i-1];
+            }
         }
         return profit;
     }
@@ -45,25 +22,27 @@ class Solution {
 
 
 //{ Driver Code Starts.
-
-int main(){
+int main() {
     int t;
-    scanf("%d ",&t);
-    while(t--){
-        
-        int n;
-        scanf("%d",&n);
-        
-        
-        vector<int> prices(n);
-        Array::input(prices,n);
-        
-        Solution obj;
-        int res = obj.stockBuyAndSell(n, prices);
-        
-        cout<<res<<endl;
-        
-    }
-}
 
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        int n = arr.size();
+        Solution ob;
+        int res = ob.stockBuyAndSell(arr);
+        cout << res;
+
+        cout << "\n";
+    }
+    return 0;
+}
 // } Driver Code Ends
