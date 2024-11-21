@@ -6,9 +6,11 @@ using namespace std;
 
 // } Driver Code Ends
 
+
+        // code here
 class Solution {
   public:
-    int stockBuyAndSell(vector<int> &prices) {
+    int maximumProfit(vector<int> &prices) {
         // code here
         int profit=0;
         for(int i=1;i<prices.size();i++){
@@ -19,6 +21,8 @@ class Solution {
         return profit;
     }
 };
+        
+    
 
 
 //{ Driver Code Starts.
@@ -38,7 +42,7 @@ int main() {
         }
         int n = arr.size();
         Solution ob;
-        int res = ob.stockBuyAndSell(arr);
+        int res = ob.maximumProfit(arr);
         cout << res;
 
         cout << "\n";
