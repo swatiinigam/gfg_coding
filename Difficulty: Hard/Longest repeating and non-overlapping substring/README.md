@@ -1,0 +1,12 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/longest-repeating-and-non-overlapping-substring3421/1?page=1&difficulty=Hard&status=unsolved&sortBy=submissions">Longest repeating and non-overlapping substring</a></h2><h3>Difficulty Level : Difficulty: Hard</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 14pt;">Given a string <strong>s</strong>, find the longest repeating non-overlapping substring in it. In other words find 2 identical substrings of maximum length which <strong>do not overlap</strong>. Return the longest non-overlapping substring. Return <strong>-1</strong>&nbsp;if no such string exists.</span></p>
+<p><span style="font-size: 14pt;">Note:<strong> </strong>Multiple Answers are possible but you have to return the substring whose <strong>first occurrence</strong> is earlier.</span></p>
+<p><span style="font-size: 14pt;">For Example: "abhihiab", here both <strong>"ab"</strong> and <strong>"hi"</strong> are possible answers. But you will have to return <strong>"ab"</strong> because its first occurrence appears before the first occurrence of "hi".</span></p>
+<p><span style="font-size: 14pt;"><strong>Examples:</strong></span></p>
+<pre><span style="font-size: 14pt;"><strong>Input:</strong>&nbsp;s =<strong> </strong>"acdcdacdc"
+<strong>Output: </strong>"acdc"
+<strong>Explanation: </strong>The string "acdc" is the longest Substring of s which is repeating but not overlapping.</span></pre>
+<pre><span style="font-size: 14pt;"><strong>Input:</strong> s = "geeksforgeeks"<br><strong>Output: </strong>"geeks"<br><strong>Explanation: </strong>The string "geeks" is the longest subString of s which is repeating but not overlapping.<br></span></pre>
+<pre><span style="font-size: 14pt;"><strong>Input:</strong>&nbsp;s =<strong> </strong>"heheheh"
+<strong>Output: </strong>"heh"
+<strong>Explanation: </strong>The string "heh" is the longest Substring of s which is repeating but not overlapping.</span></pre>
+<p><span style="font-size: 14pt;"><strong>Constraints:</strong><br>1 &lt;= s.size() &lt;= 10<sup>3</sup><br>s contains only lowercase English alphabets.</span></p></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>MakeMyTrip</code>&nbsp;<code>Walmart</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Strings</code>&nbsp;<code>Dynamic Programming</code>&nbsp;<code>Data Structures</code>&nbsp;<code>Algorithms</code>&nbsp;
