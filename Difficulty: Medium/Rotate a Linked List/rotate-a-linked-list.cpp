@@ -1,15 +1,25 @@
 //{ Driver Code Starts
+// Initial Template for C++
 #include <bits/stdc++.h>
 using namespace std;
 
 struct Node {
     int data;
-    struct Node *next;
+    struct Node* next;
+
     Node(int x) {
         data = x;
         next = NULL;
     }
 };
+
+void printList(Node* node) {
+    while (node != NULL) {
+        cout << node->data << " ";
+        node = node->next;
+    }
+    cout << "\n";
+}
 
 
 // } Driver Code Ends
@@ -26,70 +36,79 @@ struct Node {
 
 */
 
-
-class Solution
-{
-    public:
-    //Function to rotate a linked list.
-    Node* rotate(Node* head, int k)
-    {
+class Solution {
+  public:
+    Node* rotate(Node* head, int k) {
         // Your code here
-        if(head == NULL || head->next == NULL) return head;
-        
-        Node *node = head,*tail = head;
-        // find the tail
-        while(tail->next){ tail = tail->next;}
-        
-                
-        while(k>0){
-            head = node->next; // update for new head
-            node->next = NULL; // remove the front node from LL
-            tail->next = node; // insert that node at tail
-            tail = node; // update the tail 
-            node = head; // update the front node
-            k--; // decrease the rotation count
+        int n=0;
+        Node *temp=head;
+        while(temp!=NULL){
+            temp=temp->next;
+            n++;
         }
+        k=k%n;
+        
+        Node *front=head;
+        temp=head;
+        while(temp->next!=NULL){
+            temp=temp->next;
+            
+        }
+        
+        while(k!=0){
+             head=head->next;
+             front->next=NULL;
+             temp->next=front;
+             temp=front;
+             front=head;
+             k--;
+        }
+        
         return head;
     }
+
+
 };
+
 
 //{ Driver Code Starts.
 
-void printList(Node *n)
-{
-    while (n != NULL)
-    {
-        cout<< n->data << " ";
-        n = n->next;
-    }
-    cout<< endl;
-}
-
-int main()
-{
+int main() {
     int t;
-    cin>>t;
-    while(t--)
-    {
-        int n, val, k;
-        cin>>n;
-        
-        cin>> val;
-        Node *head = new Node(val);
-        Node *tail = head;
-        
-        for(int i=0; i<n-1; i++)
-        {
-            cin>> val;
-            tail->next = new Node(val);
-            tail = tail->next;
+    cin >> t;
+    cin.ignore();
+
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input);
+        stringstream ss(input);
+        int number;
+
+        // Read numbers from the input line
+        while (ss >> number) {
+            arr.push_back(number);
         }
-        
-        cin>> k;
-        
+
+        Node* head = nullptr;
+
+        // Check if the array is empty
+        if (!arr.empty()) {
+            head = new Node(arr[0]);
+            Node* tail = head;
+            for (size_t i = 1; i < arr.size(); ++i) {
+                tail->next = new Node(arr[i]);
+                tail = tail->next;
+            }
+        }
+        int k;
+        cin >> k;
+        cin.ignore();
+
         Solution ob;
-        head = ob.rotate(head,k);
+        head = ob.rotate(head, k);
         printList(head);
+        cout << "~\n";
     }
     return 1;
 }
