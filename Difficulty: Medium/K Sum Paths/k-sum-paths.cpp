@@ -1,11 +1,10 @@
 //{ Driver Code Starts
-//Initial template for C++
+// Initial template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node 
-{
+struct Node {
     int data;
     Node *left;
     Node *right;
@@ -17,8 +16,7 @@ struct Node
 };
 
 // Function to Build Tree
-Node *buildTree(string str) 
-{
+Node *buildTree(string str) {
     // Corner Case
     if (str.length() == 0 || str[0] == 'N')
         return NULL;
@@ -82,11 +80,8 @@ Node *buildTree(string str)
 
 
 // } Driver Code Ends
-//User function template for C++
-
 /*
-struct Node 
-{
+struct Node {
     int data;
     Node *left;
     Node *right;
@@ -98,46 +93,27 @@ struct Node
 };
 */
 class Solution {
-private:
-    int solve(Node* root, int k, int currentSum, unordered_map<int, int>& prefixSumCount) {
-        if (!root) {
-            return 0;
-        }
-        
-        // Update the current prefix sum
-        currentSum += root->data;
-        
-        // Number of paths with sum equal to k
-        int cnt = 0;
-        
-        // Check if there's a prefix sum that we can subtract to get sum k
-        if (prefixSumCount.find(currentSum - k) != prefixSumCount.end()) {
-            cnt += prefixSumCount[currentSum - k];
-        }
-        
-        // Update the map with the current prefix sum
-        prefixSumCount[currentSum]++;
-        
-        // Recur for left and right subtrees
-        cnt += solve(root->left, k, currentSum, prefixSumCount);
-        cnt += solve(root->right, k, currentSum, prefixSumCount);
-        
-        // Remove the current prefix sum from the map before returning to the parent node (backtracking)
-        prefixSumCount[currentSum]--;
-        
-        return cnt;
-    }
-
-public:
+  public:
+  void Solve(Node* root,int k,int &ans,unordered_map<int,int>&mp,int sum){
+      if(root==NULL)
+      return;
+      sum+=root->data;
+      ans+=mp[sum-k];
+      if(sum==k)
+      ans++;
+      mp[sum]++;
+      Solve(root->left,k,ans,mp,sum);
+      Solve(root->right,k,ans,mp,sum);
+      mp[sum]--;
+  }
     int sumK(Node *root, int k) {
-        unordered_map<int, int> prefixSumCount;
-        // Base case to handle the sum from the root to the current node
-        prefixSumCount[0] = 1;
-        return solve(root, k, 0, prefixSumCount);
+        // code here
+        int ans=0;
+        unordered_map<int,int>mp;
+        Solve(root,k,ans,mp,0);
+        return ans;
     }
 };
-
-
 
 //{ Driver Code Starts.
 
@@ -145,18 +121,18 @@ int main() {
     string tc;
     getline(cin, tc);
     int t = stoi(tc);
-  
-    while(t--)
-    {
-        string s ,ch;
+
+    while (t--) {
+        string s, ch;
         getline(cin, s);
-        Node* root = buildTree(s);
+        Node *root = buildTree(s);
 
         string key;
         getline(cin, key);
-        int k=stoi(key);
+        int k = stoi(key);
         Solution ob;
         cout << ob.sumK(root, k) << "\n";
+        cout << "~\n";
     }
     return 0;
 }
