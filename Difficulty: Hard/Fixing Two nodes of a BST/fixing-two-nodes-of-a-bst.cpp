@@ -4,19 +4,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node
-{
+class Node {
+  public:
     int data;
     Node *left, *right;
-    Node(int val)
-    {
+
+    Node(int val) {
         data = val;
         left = right = NULL;
     }
 };
 
-Node* buildTree(string str)
-{
+Node* buildTree(string str) {
     // Corner Case
     if (str.length() == 0 || str[0] == 'N')
         return NULL;
@@ -26,7 +25,7 @@ Node* buildTree(string str)
     vector<string> ip;
 
     istringstream iss(str);
-    for (string str; iss >> str; )
+    for (string str; iss >> str;)
         ip.push_back(str);
 
     // Create the root of the tree
@@ -78,29 +77,33 @@ Node* buildTree(string str)
     return root;
 }
 
-bool isBST(Node* n, int lower, int upper)
-{
-    if (!n) return true;
-    if ( n->data <= lower || n->data >= upper ) return false;
-    return (  isBST( n->left, lower, n->data )  &&  isBST( n->right, n->data, upper )  );
+bool isBST(Node* n, int lower, int upper) {
+    if (!n)
+        return true;
+    if (n->data <= lower || n->data >= upper)
+        return false;
+    return (isBST(n->left, lower, n->data) && isBST(n->right, n->data, upper));
 }
 
-bool compare( Node* a, Node* b, vector<pair<int, int>> &mismatch )
-{
-    if ( !a && !b ) return true;
-    if ( !a || !b ) return false;
+bool compare(Node* a, Node* b, vector<pair<int, int>>& mismatch) {
+    if (!a && !b)
+        return true;
+    if (!a || !b)
+        return false;
 
-    if ( a->data != b->data )
-        mismatch.push_back( pair<int, int> (a->data, b->data) );
+    if (a->data != b->data)
+        mismatch.push_back(pair<int, int>(a->data, b->data));
 
-    return ( compare( a->left, b->left, mismatch ) && compare( a->right, b->right, mismatch ) );
+    return (compare(a->left, b->left, mismatch) &&
+            compare(a->right, b->right, mismatch));
 }
 
 
 // } Driver Code Ends
 /*
-struct Node
+class Node
 {
+    public:
     int data;
     Node *left, *right;
     Node(int val)
@@ -111,85 +114,49 @@ struct Node
 };
 */
 
-class Solution {
+class Solution 
+{
   public:
-    void correctBST(struct Node* root) {
-        Node *curr = NULL;
-        Node *first = NULL, *second = NULL;
-        Node *last = NULL, *present = NULL;
+    void in(Node* root, vector<int>& ans) 
+        {
+              if (root == NULL) 
+              {
+                  return;
+              }
+              
+              in(root->left, ans);
+              ans.push_back(root->data);
+              in(root->right, ans);
+         }
 
-        while (root) {
-            if (!root->left) {
-                // No left child, process the current node
-                last = present;
-                present = root;
-
-                // Check if the current node is out of order
-                if (last && last->data > present->data) {
-                    if (!first) {
-                        // First violation
-                        first = last;
-                    }
-                    // Second violation
-                    second = present;
-                }
-
-                // Move to the right subtree
-                root = root->right;
-            } else {
-                // Find the rightmost node in the left subtree (Morris Traversal)
-                curr = root->left;
-                while (curr->right && curr->right != root) {
-                    curr = curr->right;
-                }
-
-                if (!curr->right) {
-                    // Link the rightmost node in the left subtree to the root
-                    curr->right = root;
-                    root = root->left;
-                } else {
-                    // Restore the tree structure
-                    curr->right = NULL;
-
-                    last = present;
-                    present = root;
-
-                    // Check if the current node is out of order
-                    if (last && last->data > present->data) {
-                        if (!first) {
-                            // First violation
-                            first = last;
-                        }
-                        // Second violation
-                        second = present;
-                    }
-
-                    // Move to the right subtree
-                    root = root->right;
-                }
-            }
+    
+      void replaceValues(Node* root, vector<int>& ans, int& index) 
+        {
+              if (root == NULL) return;
+              replaceValues(root->left, ans, index);
+              root->data = ans[index++];
+              replaceValues(root->right, ans, index);
         }
 
-        // Swap the values of the first and second nodes to fix the BST
-        if (first && second) {
-            int temp = first->data;
-            first->data = second->data;
-            second->data = temp;
-        }
-    }
+  void correctBST(Node* root) 
+  {
+      vector<int> ans;
+      in(root, ans);
+      sort(ans.begin(), ans.end());
+      int index = 0;
+      replaceValues(root, ans, index);
+  }
 };
 
 
 //{ Driver Code Starts.
 
-int main()
-{
+int main() {
     int t;
     cin >> t;
     getchar();
 
-    while (t--)
-    {
+    while (t--) {
         string s;
         getline(cin, s);
 
@@ -200,8 +167,7 @@ int main()
         ob.correctBST(root);
 
         // check 1: is tree now a BST
-        if ( ! isBST(root, INT_MIN, INT_MAX) )
-        {
+        if (!isBST(root, INT_MIN, INT_MAX)) {
             cout << "0\n";
             continue;
         }
@@ -211,20 +177,22 @@ int main()
         vector<pair<int, int>> mismatch;
         // a vector to store data of mismatching nodes
 
-        if ( ! compare( root, duplicate, mismatch) )
-        {
+        if (!compare(root, duplicate, mismatch)) {
             // false output from this function indicates change in structure of tree
             cout << "0\n";
             continue;
         }
 
         // finally, analysing the mismatching nodes
-        if ( mismatch.size() != 2 || mismatch[0].first != mismatch[1].second || mismatch[0].second != mismatch[1].first )
+        if (mismatch.size() != 2 || mismatch[0].first != mismatch[1].second ||
+            mismatch[0].second != mismatch[1].first)
             cout << "0\n";
-        else cout << "1\n";
-    
-cout << "~" << "\n";
-}
+        else
+            cout << "1\n";
+
+        cout << "~"
+             << "\n";
+    }
     return 0;
 }
 
