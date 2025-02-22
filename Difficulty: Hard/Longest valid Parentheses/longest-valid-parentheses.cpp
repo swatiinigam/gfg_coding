@@ -6,44 +6,27 @@ using namespace std;
 
 
 // } Driver Code Ends
-// User function Template for C++
-
-#include <vector>
-#include <stack>
-#include <string>
-using namespace std;
 
 class Solution {
-public:
-    int maxLength(string& str) {
-        stack<int> stk;
-        stk.push(-1); // Initialize stack with -1 to handle edge case
-        
-        int max_len = 0; // To keep track of the maximum length of valid parentheses
-        
-        for (int i = 0; i < str.length(); ++i) {
-            if (str[i] == '(') {
-                // Push the index of the '(' onto the stack
-                stk.push(i);
-            } else { // str[i] == ')'
-                // Pop the top index from the stack
-                stk.pop();
-                
-                if (stk.empty()) {
-                    // If the stack is empty, push the current index onto the stack
-                    stk.push(i);
-                } else {
-                    // Calculate the length of the current valid substring
-                    max_len = max(max_len, i - stk.top());
-                }
+  public:
+    int maxLength(string& s) {
+        stack<int>st;
+        st.push(-1);
+        int ans=0;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='(')
+            st.push(i);
+            else{
+                st.pop();
+                if(st.empty())
+                st.push(i);
+                else
+                ans=max(ans,i-st.top());
             }
         }
-        
-        return max_len;
+        return ans;
     }
 };
-
-
 
 //{ Driver Code Starts.
 
@@ -56,6 +39,9 @@ int main() {
 
         Solution ob;
         cout << ob.maxLength(S) << "\n";
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
