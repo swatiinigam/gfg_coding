@@ -7,47 +7,20 @@ using namespace std;
 
 class Solution {
   public:
-    // Function to count number of ways to reach the nth stair.
-    int rec(int n){
-        if(n==0 || n==1) return 1;
+   int countWays(int n) {
+       if(n == 1 || n == 2)return n;
+       int first = 1,second = 2;
+       for(int i =3;i<=n;i++){
+           int curr = first+second;
+           first = second;
+           second = curr;
+       }
+       return second;
+       
         
-        return rec(n-1)+rec(n-2);
-    }
-    int memo(int n,vector<int>&dp){
-        if(n==0 || n==1) return 1;
-        if(dp[n] != -1) return dp[n];
-        
-        dp[n] = memo(n-1,dp) + memo(n-2,dp);
-        return dp[n];
-    }
-    int tabu(int n){
-        vector<int>dp(n+1,-1);
-        dp[0] = 1;
-        dp[1] = 1;
-        
-        for(int i=2;i<=n;i++){
-            dp[i] = dp[i-1] + dp[i-2];
-        }
-        return dp[n];
-    }
-    int tabuSpaceOptimized(int n){
-        int prev = 1;
-        int curr = 1;
-        
-        for(int i=2;i<=n;i++){
-            int ans = prev+curr;
-            prev = curr;
-            curr = ans;
-        }
-        return curr;
-    }
-    int countWays(int n) {
-        // your code here
-
-        int ans = tabuSpaceOptimized(n);
-        return ans;
     }
 };
+
 
 
 //{ Driver Code Starts.
