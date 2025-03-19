@@ -1,46 +1,69 @@
 //{ Driver Code Starts
-// Initial template for C++
-
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
-// User function Template for C++
 
 class Solution {
   public:
-    int help(int a[],int n,int k,int i,int buy,vector<vector<vector<int>>>& memo){
-        if(i>=n or k<0) return 0;
-        if(memo[i][k][buy]!=-1) return memo[i][k][buy];
-        int sell=0,brought=0;
-        if(buy){
-            sell = max(a[i]+help(a,n,k,i+1,0,memo),help(a,n,k,i+1,1,memo));
-        }
-        else{
-            brought = max(-a[i]+help(a,n,k-1,i+1,1,memo),help(a,n,k,i+1,0,memo));
-        }
-        return memo[i][k][buy] = max({sell,brought});
-    }
-    int maxProfit(int k, int n, int a[]) {
+    int maxProfit(vector<int>& prices, int k) {
         // code here
-        vector<vector<vector<int>>> memo(n+1,vector<vector<int>>(k+1,vector<int>(3,-1)));
-        return help(a,n,k,0,0,memo);
+         int n = prices.size();
+    if (n == 0) return 0;
+
+    // If k is greater than n/2, then it is equivalent to infinite transactions
+    if (k >= n / 2) {
+        int maxProfit = 0;
+        for (int i = 1; i < n; ++i) {
+            if (prices[i] > prices[i - 1]) {
+                maxProfit += prices[i] - prices[i - 1];
+            }
+        }
+        return maxProfit;
     }
-};
+
+    vector<vector<int>> dp(k + 1, vector<int>(n, 0));
+
+    for (int i = 1; i <= k; ++i) {
+        int maxDiff = -prices[0];
+        for (int j = 1; j < n; ++j) {
+            dp[i][j] = max(dp[i][j - 1], prices[j] + maxDiff);
+            maxDiff = max(maxDiff, dp[i - 1][j] - prices[j]);
+        }
+    }
+
+    return dp[k][n - 1];
+    }  
+    };
+
 
 //{ Driver Code Starts.
+
 int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(0);
+
     int t;
     cin >> t;
+    cin.ignore();
     while (t--) {
-        int N, K;
-        cin >> K;
-        cin >> N;
-        int A[N];
-        for (int i = 0; i < N; i++) cin >> A[i];
+        string input;
+        getline(cin, input);
+        istringstream iss(input);
+        vector<int> arr;
+        int num;
 
+        // Read integers from the input string
+        while (iss >> num) {
+            arr.push_back(num);
+        }
+        int k;
+        cin >> k;
+        cin.ignore();
         Solution ob;
-        cout << ob.maxProfit(K, N, A) << endl;
+        cout << ob.maxProfit(arr, k) << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
