@@ -1,39 +1,19 @@
-<h2><a href="https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1">Dijkstra Algorithm</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given a weighted, undirected and connected graph of <strong>V</strong> vertices and an adjacency list adj where adj[i] is a list of lists containing two integers where the<strong> first </strong>integer of each list <strong>j</strong>&nbsp;denotes there is <strong>edge</strong> between i and j&nbsp;,&nbsp;second integers corresponds to the <strong>weight</strong> of that&nbsp;&nbsp;edge .&nbsp;You are given the source vertex <strong>S</strong> and You to&nbsp;Find the shortest distance of all the vertex's from the source vertex <strong>S</strong>.&nbsp;You have to return a list of integers denoting shortest distance between <strong>each node</strong> and Source vertex<strong> S</strong>.</span><br>&nbsp;</p>
-<p><span style="font-size: 18px;"><strong>Note: </strong>The Graph doesn't contain any negative weight cycle.</span></p>
-<p>&nbsp;</p>
-<p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
-<pre><span style="font-size: 18px;"><strong>Input:</strong></span>
-<span style="font-size: 18px;"><strong>V </strong>= 2
-<strong>adj [] </strong>=<strong> </strong>{{{1, 9}}, {{0, 9}}}
-<strong>S </strong>= 0</span>
-<span style="font-size: 18px;"><strong>Output:</strong>
-0 9
-<strong>Explanation</strong>:
-</span><img src="https://media.geeksforgeeks.org/img-practice/PROD/addEditProblem/700334/Web/Other/6a77963c-f9a6-4cf4-953c-19a2759a52a3_1685086564.png" alt="">
-<span style="font-size: 18px;">The source vertex is 0. Hence, the shortest 
-distance of node 0 is 0 and the shortest 
-distance from node 1 is 9.</span>
-</pre>
-<p>&nbsp;</p>
-<p><span style="font-size: 18px;"><strong>Example 2:</strong></span></p>
-<pre><span style="font-size: 18px;"><strong>Input:
-V </strong>= 3, <strong>E</strong> = 3
-<strong>adj</strong> = {{{1, 1}, {2, 6}}, {{2, 3}, {0, 1}}, {{1, 3}, {0, 6}}}</span>
-<span style="font-size: 18px;"><strong>S </strong>= 2</span>
-<span style="font-size: 18px;"><strong>Output:</strong>
-4 3 0
-<strong>Explanation</strong>:
-</span><img src="https://media.geeksforgeeks.org/img-practice/PROD/addEditProblem/700334/Web/Other/8c9ee3a2-a7d3-4028-ae22-a22ddb6ab7a3_1685086565.png" alt="">
-<span style="font-size: 18px;">For nodes 2 to 0, we can follow the path-
-2-1-0. This has a distance of 1+3 = 4,
-whereas the path 2-0 has a distance of 6. So,
-the Shortest path from 2 to 0 is 4.
-The shortest distance from 0 to 1 is 1 .</span>
-</pre>
-<p>&nbsp;</p>
-<p><span style="font-size: 18px;"><strong>Your Task:</strong><br>You don't need to read input or print anything. Your task is to complete the function&nbsp;<strong>dijkstra()</strong>&nbsp;</span> <span style="font-size: 18px;">which takes the number of vertices V<strong> </strong>and<strong>&nbsp;</strong>an adjacency list adj as input parameters&nbsp;and Source vertex S returns a list of integers, where ith integer denotes the shortest distance of the ith node from the Source node. </span> <span style="font-size: 18px;">Here adj[i] contains a list of lists containing two integers where the first integer j denotes that there is an edge between i and j and the second integer w denotes that the weight between edge i and j is w.</span></p>
-<p>&nbsp;</p>
-<p><span style="font-size: 18px;"><strong>Expected Time Complexity:</strong>&nbsp;O(V<sup>2</sup>).<br><strong>Expected Auxiliary Space:</strong>&nbsp;O(V<sup>2</sup>).</span></p>
-<p>&nbsp;</p>
-<div><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 </span> <span style="font-size: 18px;">≤</span> <span style="font-size: 18px;"> V </span> <span style="font-size: 18px;">≤</span> <span style="font-size: 18px;"> 1000<br>0 </span> <span style="font-size: 18px;">≤</span> <span style="font-size: 18px;"> adj[i][j] </span> <span style="font-size: 18px;">≤</span> <span style="font-size: 18px;"> 1000</span></div>
-<div><span style="font-size: 18px;">1 ≤&nbsp;adj.size()&nbsp;≤ [ (V*(V - 1)) / 2 ]<br>0 </span> <span style="font-size: 18px;">≤</span> <span style="font-size: 18px;"> S &lt; V</span></div></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>Flipkart</code>&nbsp;<code>Microsoft</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Graph</code>&nbsp;<code>Data Structures</code>&nbsp;<code>Algorithms</code>&nbsp;
+<h2><a href="https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1">Dijkstra Algorithm</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 14pt;">Given an undirected, weighted graph with <strong>V&nbsp;</strong>vertices numbered from 0 to V-1 and <strong>E&nbsp;</strong>edges, represented by 2d array <strong>edges[][]</strong>, where edges[i]=[u, v, w] represents the <strong>edge</strong> between the nodes u and v having w <strong>edge weight</strong>.<br><span style="font-size: 18.6667px;">You have to find the <strong>shortest distance </strong>of all the vertices from the source vertex&nbsp;</span><strong style="font-size: 18.6667px;">src</strong><span style="font-size: 18.6667px;">, </span></span><span style="font-size: 18.6667px;">and return an array of integers where the <strong>ith</strong> element denotes the shortest distance between <strong>ith</strong> node</span><span style="font-size: 18.6667px;">&nbsp;and source vertex</span><strong style="font-size: 18.6667px;">&nbsp;src</strong><span style="font-size: 18.6667px;">.</span></p>
+<p><span style="font-size: 14pt;"><strong>Note: </strong>The Graph is connected and doesn't contain any negative weight edge.</span></p>
+<p><span style="font-size: 14pt;"><strong>Examples:</strong></span></p>
+<pre><span style="font-size: 14pt;"><strong style="font-size: 14pt;">Input: </strong><span style="font-size: 14pt;">V = 3, edges[][] = [[0, 1, 1], [1, 2, 3], [0, 2, 6]], src = 2
+</span><strong style="font-size: 14pt;">Output: </strong><span style="font-size: 14pt;">[4, 3, 0]
+</span><strong style="font-size: 14pt;">Explanation</strong><span style="font-size: 14pt;">:
+<img src="https://media.geeksforgeeks.org/img-practice/prod/addEditProblem/892538/Web/Other/blobid0_1744201836.jpg" width="317" height="236"><br></span><span style="font-size: 18.6667px;">Shortest Paths:
+For 2 to 0 minimum distance will be 4. By following path 2 -&gt; 1 -&gt; 0
+For 2 to 1 minimum distance will be 3. By following path 2 -&gt; 1
+For 2 to 2 minimum distance will be 0. By following path 2 -&gt; 2</span><span style="font-size: 14pt;"><br></span></span></pre>
+<pre><span style="font-size: 14pt;"><strong style="font-size: 14pt;">Input: </strong><span style="font-size: 14pt;">V = 5, edges[][] = [[0, 1, 4], [0, 2, 8], [1, 4, 6], [2, 3, 2], [3, 4, 10]], src = 0
+</span><strong style="font-size: 14pt;">Output: </strong><span style="font-size: 14pt;">[0, 4, 8, 10, 10]
+</span><strong style="font-size: 14pt;">Explanation</strong><span style="font-size: 14pt;">: <br><img src="https://media.geeksforgeeks.org/img-practice/prod/addEditProblem/892538/Web/Other/blobid1_1744202046.jpg" width="336" height="273"><br></span><span style="font-size: 18.6667px;">Shortest Paths: <br>For 0 to 1 minimum distance will be 4. By following path 0 -&gt; 1
+For 0 to 2 minimum distance will be 8. By following path 0 -&gt; 2
+For 0 to 3 minimum distance will be 10. By following path 0 -&gt; 2 -&gt; 3 
+For 0 to 4 minimum distance will be 10. By following path 0 -&gt; 1 -&gt; 4</span></span></pre>
+<div><span style="font-size: 14pt;"><strong>Constraints:</strong><br>1 ≤ V ≤ 10<sup>5</sup></span></div>
+<div><span style="font-size: 14pt;">1 ≤ E = edges.size() ≤ 10<sup>5</sup><br>0 ≤ edges[i][j] ≤ 10<sup>4</sup></span></div>
+<div><span style="font-size: 14pt;">0 ≤ src &lt; V</span></div></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>Flipkart</code>&nbsp;<code>Microsoft</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Graph</code>&nbsp;<code>Data Structures</code>&nbsp;<code>Algorithms</code>&nbsp;
