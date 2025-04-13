@@ -1,5 +1,5 @@
 //{ Driver Code Starts
-//Initial Template for C++
+// Initial Template for C++
 
 #include <bits/stdc++.h>
 #include <sstream>
@@ -8,33 +8,37 @@ using namespace std;
 struct Node {
     int val;
     vector<Node*> neighbors;
+
     Node() {
         val = 0;
         neighbors = vector<Node*>();
     }
+
     Node(int _val) {
         val = _val;
         neighbors = vector<Node*>();
     }
+
     Node(int _val, vector<Node*> _neighbors) {
         val = _val;
         neighbors = _neighbors;
     }
 };
-vector<Node*> bfs(Node *src){
-    vector<Node*>ans;
+
+vector<Node*> bfs(Node* src) {
+    vector<Node*> ans;
     map<Node*, bool> visit;
     queue<Node*> q;
     q.push(src);
     visit[src] = true;
     while (!q.empty()) {
-        Node *u = q.front();
+        Node* u = q.front();
         ans.push_back(u);
         q.pop();
-        vector<Node *> v = u->neighbors;
+        vector<Node*> v = u->neighbors;
         int n = v.size();
-        for (int i = 0; i < n; i++){
-            if (!visit[v[i]]){
+        for (int i = 0; i < n; i++) {
+            if (!visit[v[i]]) {
                 visit[v[i]] = true;
                 q.push(v[i]);
             }
@@ -43,7 +47,8 @@ vector<Node*> bfs(Node *src){
     return ans;
 }
 
-bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis, unordered_set<Node*>& new_vis) {
+bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis,
+             unordered_set<Node*>& new_vis) {
     if (prev == new_node) {
         return false;
     }
@@ -55,7 +60,8 @@ bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis, unorder
     }
 
     if (prev_vis.count(prev) || new_vis.count(new_node)) {
-        if ((prev_vis.count(prev) && !new_vis.count(new_node)) || (!prev_vis.count(prev) && new_vis.count(new_node))) {
+        if ((prev_vis.count(prev) && !new_vis.count(new_node)) ||
+            (!prev_vis.count(prev) && new_vis.count(new_node))) {
             return false;
         }
         return true;
@@ -73,8 +79,10 @@ bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis, unorder
         return false;
     }
 
-    sort(prev->neighbors.begin(), prev->neighbors.end(), [](Node* a, Node* b) { return a->val < b->val; });
-    sort(new_node->neighbors.begin(), new_node->neighbors.end(), [](Node* a, Node* b) { return a->val < b->val; });
+    sort(prev->neighbors.begin(), prev->neighbors.end(),
+         [](Node* a, Node* b) { return a->val < b->val; });
+    sort(new_node->neighbors.begin(), new_node->neighbors.end(),
+         [](Node* a, Node* b) { return a->val < b->val; });
 
     for (size_t i = 0; i < prev_n; ++i) {
         if (!compare(prev->neighbors[i], new_node->neighbors[i], prev_vis, new_vis)) {
@@ -87,7 +95,8 @@ bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis, unorder
 
 
 // } Driver Code Ends
-//User function Template for C++
+
+// User function Template for C++
 
 // struct Node {
 //     int val;
@@ -108,40 +117,37 @@ bool compare(Node* prev, Node* new_node, unordered_set<Node*>& prev_vis, unorder
 
 class Solution {
 public:
-    Node* cloneGraph(Node* node) {
-        if (!node) return nullptr;
-
-        // A map to store cloned nodes with the original nodes as keys
-        unordered_map<Node*, Node*> clones;
-        
-        // Create the first node
-        clones[node] = new Node(node->val);
-        
-        // BFS queue
-        queue<Node*> q;
-        q.push(node);
-        
-        while (!q.empty()) {
-            Node* curr = q.front();
-            q.pop();
-            
-            // Traverse all the neighbors of the current node
-            for (Node* neighbor : curr->neighbors) {
-                // If the neighbor hasn't been cloned yet
-                if (clones.find(neighbor) == clones.end()) {
-                    // Clone and add the neighbor to the map
-                    clones[neighbor] = new Node(neighbor->val);
-                    // Push the neighbor to the queue for BFS
-                    q.push(neighbor);
-                }
-                // Add the cloned neighbor to the current node's clone's neighbors
-                clones[curr]->neighbors.push_back(clones[neighbor]);
+    unordered_map<Node*, Node*> hash;
+    unordered_map<Node*, bool> vis;
+    
+    void buildNode(Node* node) {
+        if (!node) return;
+        hash[node] = new Node(node->val);
+        vis[node] = false;
+        for (auto& i : node->neighbors) {
+            if (hash.find(i) == hash.end()) {
+                buildNode(i);
             }
         }
-        
-        return clones[node];
+    }
+    
+    void clone(Node* node) {
+        vis[node] = true;
+        for (auto& i : node->neighbors) {
+            hash[node]->neighbors.push_back(hash[i]);
+            if(!vis[i]) clone(i);
+        }
+    }
+    
+    Node* cloneGraph(Node* node) {
+        if (!node) return nullptr;
+        buildNode(node);
+        clone(node);
+        return hash[node];
     }
 };
+
+
 
 
 
@@ -153,10 +159,11 @@ int main() {
         int N;
         cin >> N;
         Node* root = NULL;
-        vector<Node*>v(N);
+        vector<Node*> v(N);
         std::string buffer;
         std::getline(std::cin, buffer);
-        for (int i = 0; i < N; i++)v[i] = new Node(i);
+        for (int i = 0; i < N; i++)
+            v[i] = new Node(i);
         for (int i = 0; i < N; i++) {
             std::vector<Node*> vec;
             std::string buffer;
@@ -168,12 +175,17 @@ int main() {
             v[i]->neighbors = vec;
         }
         Solution ob;
-        vector<Node*>prev = bfs(v[0]);
+        vector<Node*> prev = bfs(v[0]);
         Node* ans = ob.cloneGraph(v[0]);
-        //vector<Node*>now = bfs(ans);
-        unordered_set<Node*>prev_vis, new_vis;
-        cout << compare(v[0], ans, prev_vis, new_vis) << endl;
+        // vector<Node*>now = bfs(ans);
+        unordered_set<Node*> prev_vis, new_vis;
+        if (compare(v[0], ans, prev_vis, new_vis))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
 
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
