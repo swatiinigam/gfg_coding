@@ -12,14 +12,6 @@ struct Node {
     }
 };
 
-void printList(Node *node) {
-    while (node != NULL) {
-        cout << node->data << " ";
-        node = node->next;
-    }
-    cout << "\n";
-}
-
 void loopHere(Node *head, Node *tail, int position) {
     if (position == 0)
         return;
@@ -32,8 +24,8 @@ void loopHere(Node *head, Node *tail, int position) {
 
 
 // } Driver Code Ends
-/*
 
+/*
 struct Node {
     int data;
     struct Node *next;
@@ -47,33 +39,32 @@ struct Node {
 class Solution {
   public:
     // Function to find the length of a loop in the linked list.
-    bool cycle(Node* head,Node* &slow,Node* &fast)
-    {
-        while(fast!=NULL && fast->next!=NULL){
-            slow=slow->next;
-            fast=fast->next->next;
-            if(fast==slow)
-             return true;
-        }
-        return false;
-    }
     int countNodesinLoop(Node *head) {
-       if(head==NULL)
-        return 0;
-        Node*slow=head;
-        Node*fast=head;
-       bool ans=cycle(head,slow,fast);
-       if(!ans)
-        return 0;
-       Node*temp=fast->next;
-       int cnt=1;
-       while(temp!=slow){
-           temp=temp->next;
-           cnt++;
-       }
-       return cnt;
+        // Code here
+        bool cycle=false;
+        int len=1;
+        Node* fast=head,*slow=head;
+        while(fast->next && fast->next->next){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow){
+                cycle=true;
+                break;
+            }
+        }
+        
+        if(cycle){
+            slow=slow->next;
+            while(slow!=fast){
+                slow=slow->next;
+                len++;
+            }
+        }
+        
+        return cycle? len : 0;
     }
 };
+
 
 //{ Driver Code Starts.
 
@@ -103,6 +94,7 @@ int main() {
 
         Solution ob;
         cout << ob.countNodesinLoop(head) << endl;
+        cout << "~" << endl;
     }
     return 0;
 }
